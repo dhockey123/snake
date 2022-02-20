@@ -9,9 +9,17 @@ var size=12
 
 var direction = 0
 
-// grids.forEach((grid, i)=>{setTimeout(()=>{console.log(i)}, i*1000)})
+var food = Math.round(Math.random()*length**2)
+grids[food].style.background = "purple"
 
-// setTimeout((i)=>{console.log("test")}, i*1000)
+function placeFood(){
+    if(idx === food){
+        food = Math.round(Math.random()*length**2)
+        grids[food].style.background = "purple"
+    }
+}
+
+
 
 grids[idx].style.background = "black"
 
@@ -34,14 +42,19 @@ document.addEventListener('keydown', (e)=>{
 })
 
 
-
+var time = 0
 
 function currentMotion(){
     idx = idx + direction
+    if(time<70){
+        time += 0
+    }
+
     idx_list.push(idx)
     grids[idx].style.background = "black"
     set_length()
-    setTimeout(currentMotion, 200)
+    placeFood()
+    setTimeout(currentMotion, 100-time)
 }
 
 
@@ -52,6 +65,7 @@ function set_length(){
     if(idx_list.length >= size){
         grids[idx_list[0]].style.background = "white"
         idx_list = idx_list.slice(1, )
+        
     }
 }
 function moveDown(){
@@ -61,6 +75,7 @@ function moveDown(){
         checkforLoss()
         idx_list.push(idx)
         grids[idx].style.background = "black"
+        placeFood()
         set_length()
     }
 }
@@ -71,6 +86,7 @@ function moveUp(){
         checkforLoss()
         grids[idx].style.background = "black"
         idx_list.push(idx)
+        placeFood()
         set_length()
     }
 }
@@ -81,6 +97,7 @@ function moveLeft(){
         checkforLoss()
         grids[idx].style.background = "black"
         idx_list.push(idx)
+        placeFood()
         set_length()
     }
 }
@@ -92,6 +109,7 @@ function moveRight(){
         checkforLoss()
         grids[idx].style.background = "black"
         idx_list.push(idx)
+        placeFood()
         set_length()
     }
 }
@@ -102,4 +120,4 @@ function checkforLoss(){
     }
 }
 
-setTimeout(currentMotion, 200)
+setTimeout(currentMotion, 100)
