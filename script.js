@@ -14,6 +14,7 @@ grids[food].style.background = "purple"
 
 function placeFood(){
     if(idx === food){
+        size+=1
         food = Math.round(Math.random()*length**2)
         grids[food].style.background = "purple"
     }
